@@ -1,75 +1,45 @@
-# AIFFEL_DLthon_NLP_classification
-
-### 📌 프로젝트 개요
-
-- 프로젝트명: AIFFEL_DLthon_NLP_classification
- 본 프로젝트는 한국어 대화에서 위협적인 대화(협박, 갈취, 직장 내 괴롭힘, 기타 괴롭힘)와 일반 대화를 분류하는 모델을 개발하는 것을 목표로 합니다. NLU(Natural Language Understanding) 기반의 모델을 학습하여 텍스트 데이터를 효과적으로 분석하고, 위협성 여부를 자동으로 판단할 수 있도록 구현되었습니다.  
-  
-- 기간: 2025.02.18 ~ 2025.02.21
-
-- 참여 인원: 4명 
+# DKTC Classification
+### 📌 Project Overview
+- Objective: This project aims to develop a model that classifies threatening conversations (threats, extortion, workplace bullying, and other types of harassment) and general conversations in Korean. By training an NLU (Natural Language Understanding)-based model, we seek to analyze text data effectively and automatically determine whether a conversation is threatening.   
   
 ---
   
-### 📊 데이터셋 구성
+### 📊 Dataset Composition
+*`Data`* [tunib-ai/DKTC](https://github.com/tunib-ai/DKTC): TUNiB's Self-Produced Dataset to Participate in the Voice Recognition Track of the 4th AI Grand Challenge 2021. 
 
-- 학습 데이터는 '협박', '갈취', '직장 내 괴롭힘', '기타 괴롭힘' 등 4개 클래스 각 약 1천 개로 구성  
-- 테스트 데이터는 '협박', '갈취', '직장 내 괴롭힘', '기타 괴롭힘', '일반 대화' 등 5개 클래스 각 1백여 개로 구성
-
+- The training dataset consists of approximately 1,000 samples per class for four categories: threats, extortion, workplace bullying, and other harassment.
+- The test dataset consists of approximately 100 samples per class for five categories: threats, extortion, workplace bullying, other harassment, and general conversation.
   
-| 데이터셋 | 클래스 | 샘플 개수 |  
+
+| Dataset | Classes | Samples |  
 |--------|--------|--------|
-| Train | 협박 대화, 갈취 대화, 직장내 괴롭힘 대화, 기타 괴롭힘 대화 | 약 4,000개 |  
-| Test | 협박 대화, 갈취 대화, 직장 내 괴롭힘 대화, 기타 괴롭힘 대화 | 500개 |   
-| 추가 데이터 | 일반 대화(합성 데이터, AI-hub 데이터 셋) | +개 |
-  
+| Train | Threats, Extortion, Workplace Bullying, Other Harassment | around 4,000 |  
+| Test | Threats, Extortion, Workplace Bullying, Other Harassment | around 500 |   
+| Additional Data	| General Conversation (Synthetic Data, AI-hub Dataset) | (+)samples |
+
 ---
-    
-### 📂 프로젝트 구조
+
+*`Evaluation`*: Measure by the f1 score between the results classified by the model and the correct answer.
+
+---
+### 📂 Directory
+
 ```
-프로젝트 디렉토리
- ┣ data/           # 데이터셋 (train, test, 추가 합성 데이터)  
- ┣ models/         # 학습된 모델 및 체크포인트 저장  
- ┣ notebooks/      # 데이터 분석 및 실험 노트북  
- ┗ 📜 README.md       # 프로젝트 설명 파일   
+┣ assets/         # About Dataset, results(photos) and report(.md)
+┣ models/         # Trained models and checkpoints
+┣ src/            # Source code, data analysis, and experiment notebooks
+┃ ┗ notebooks/    # Data analysis and experiment notebooks (.ipynb)
+┃ ┗ utils/        # Preprocess and other required modules (.py)
+┗ 📜 README.md    # Project description file
 ```
 
+
 ---
-### 📈 Results
+### 📈 Version
+| Version    | Date | Contentes | Update Notes | Number of Members |  
+| ------- | ------ | --------- | --------- | ----------- | 
+|  v1.0.0   | Feb.21.2025 | Draft | [Group project](https://github.com/ChoSungWoo0/AIFFEL_DLthon_NLP_classification)     | 4      | 
+|  v1.0.1   | ongoing | Organise the draft project and visualisation  | -  |    1   | 
 
-
-2. [LResNet34E-IR@BaiduDrive](https://pan.baidu.com/s/1jKahEXw)
-Performance:
-
-| Method  | LFW(%) | CFP-FF(%) | CFP-FP(%) | AgeDB-30(%) | MegaFace(%)   |
-| ------- | ------ | --------- | --------- | ----------- | ------------- |
-|  Ours   | 99.65  | 99.77     | 92.12     | 97.70       | 96.70         |
-
-
-*`Caffe`* [LResNet50E-IR@BaiduDrive](https://pan.baidu.com/s/1ENjcACInLfBGHZ8e7Fc-XA), converted by above MXNet model.
-Performance:
-
-| Method  | LFW(%) | CFP-FF(%) | CFP-FP(%) | AgeDB-30(%) | MegaFace1M(%) |
-| ------- | ------ | --------- | --------- | ----------- | ------------- |
-|  Ours   | 99.74  | -TBD-     | -TBD-     | -TBD-       | -TBD-         |
-
-
-
-  
-  
 ---
-  
-### ⚠️ 주요 문제 & 해결 방안
-
-  🔍 1. 검증 데이터에서는 높은 성능, 테스트 데이터에서는 낮은 성능
-
-    - 원인: 데이터 분포 차이
-
-    - 해결책: 데이터 수집을 통한 다양성 확보
-  
-  🔍 2. 검증 데이터가 모델을 과하게 유리하게 평가한 문제
-
-    - 원인: 검증 데이터와 훈련 데이터의 패턴이 너무 유사함
-
-    - 해결책: 데이터 중복 제거, 데이터 수집을 통한 데이터셋 증가
 
